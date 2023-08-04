@@ -8,7 +8,15 @@ function App() {
     <NextUIProvider>
       <main className="mytheme text-primary ">
         <div style={{ width: 1000, height: 1000 }}>
-          <Tree></Tree>
+          <Tree title='root' open={true}>
+
+            <Tree title='hello'>
+            <Tree title='myworld'>
+            </Tree>
+            </Tree>
+            <Tree title='world'>
+            </Tree>
+          </Tree>
         </div>
 
       </main>

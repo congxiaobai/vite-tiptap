@@ -4,10 +4,10 @@ import arrow_icon from '../../icons/arrow.svg';
 
 import { useSpring } from '@react-spring/web';
 import { useState } from 'react';
-export default function MyComponent() {
-    const [open, setOpen] = useState(false);
+export default (props) => {
+    const [open, setOpen] = useState(props.open || false);
     const [springs, api] = useSpring(() => ({
-        from: { x: 0, height: 0, opacity: 0 },
+        from: { x: 0, height: props.open ? 'auto' : 0, opacity: props.open ? 1 : 0 },
     }))
     const [iconsprings, iconapi] = useSpring(() => ({
         transform: 'rotate(0deg)'
@@ -18,73 +18,42 @@ export default function MyComponent() {
             iconapi.start({
                 transform: 'rotate(90deg)'
             })
+            api.start({
+                from: {
+                    x: 0, height: 0, opacity: 0
+                },
+                to: {
+                    x: 30, height: 'auto', opacity: 1
+                },
+            })
         } else {
+            api.start({
+                to: {
+                    x: 0, height: 0, opacity: 0
+                },
+                from: {
+                    x: 30, height: 'auto', opacity: 1
+                },
+            })
             iconapi.start({
                 transform: 'rotate(0deg)'
             })
         }
-
     }
-
-    const handleClick = () => {
-        api.start({
-            from: {
-                x: 0, height: 0, opacity: 0
-            },
-            to: {
-                x: 30, height: 'auto', opacity: 1
-            },
-        })
-    }
-    const hideClick = () => {
-        api.start({
-            to: {
-                x: 0, height: 0, opacity: 0
-            },
-            from: {
-                x: 30, height: 'auto', opacity: 1
-            },
-        })
-    }
-
     return (
-        <div style={{ padding: 30 }}>
-            <Button onClick={handleClick}>show </Button>
-            <Button onClick={hideClick}>hide </Button>
+        <div style={{ paddingLeft: 30 }}>
+
             <div className='flex'>
-                <Button color={'primary'} isIconOnly  variant="flat" aria-label="Take a photo" onClick={xunzhuan}>
-                    <animated.div className={'w-[40px] h-[40px]'} style={{  ...iconsprings }} >
-                        <img style={{ width: 16, height: 16 }} src={arrow_icon} />
+                {props.children ? <Button color={'primary'} className={'w-[30px] h-[30px] min-w-[30px]'} isIconOnly variant="flat" aria-label="Take a photo" onClick={xunzhuan}>
+                    <animated.div className={'w-[16px] h-[16px]'} style={{ ...iconsprings }} >
+                        <img className={'w-[16px] h-[16px]'} src={arrow_icon} />
                     </animated.div>
-                </Button>
-                <div className="bg-foreground2 w-">root</div>
+                </Button> : <></>}
+                <div className="bg-foreground2 w-">{props.title}</div>
             </div>
-
-
-            <animated.div
-                style={{
-                    width: 80,
-                    paddingLeft: 10,
-                    background: '#ff6d6d',
-                    borderRadius: 8,
-                    ...springs,
-                }}
-            ><span>Hello</span>
-                <animated.div
-
-                    style={{
-                        width: 80,
-                        paddingLeft: 10,
-                        background: '#ff6d6d',
-                        borderRadius: 8,
-                        ...springs,
-                    }}
-                ><span>World</span>
-
-
-                </animated.div>
+            <animated.div style={springs} >
+                {props.children}
             </animated.div>
-
         </div>
 
     )
