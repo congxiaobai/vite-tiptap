@@ -41,15 +41,15 @@ export default (props) => {
         }
     }
     return (
-        <div style={{ paddingLeft: 30 }}>
+        <div>
 
-            <div className='flex'>
-                {props.children ? <Button color={'primary'} className={'w-[30px] h-[30px] min-w-[30px]'} isIconOnly variant="flat" aria-label="Take a photo" onClick={xunzhuan}>
-                    <animated.div className={'w-[16px] h-[16px]'} style={{ ...iconsprings }} >
-                        <img className={'w-[16px] h-[16px]'} src={arrow_icon} />
+            <div className='flex bg-primary w-[120px] pl-1 pr-1  rounded' >
+                {props.children ? <div className={'w-[30px] h-[30px] min-w-[30px]'} onClick={xunzhuan} >
+                    <animated.div className={'w-[14px] h-[14px]'} style={{ ...iconsprings }} >
+                        <img className={'w-[14px] h-[14px]'} src={arrow_icon} />
                     </animated.div>
-                </Button> : <></>}
-                <div className="bg-foreground2 w-">{props.title}</div>
+                </div> : <></>}
+                <div>{props.title}</div>
             </div>
             <animated.div style={springs} >
                 {props.children}

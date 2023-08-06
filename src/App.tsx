@@ -6,7 +6,7 @@ function App() {
   // 2. Wrap NextUIProvider at the root of your app
   return (
     <NextUIProvider>
-      <main className="mytheme text-primary ">
+      <main className="mytheme text-textColor ">
         <div style={{ width: 1000, height: 1000 }}>
           <Tree title='root' open={true}>
 
