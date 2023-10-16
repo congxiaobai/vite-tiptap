@@ -1,4 +1,3 @@
-import { Button } from '@nextui-org/react';
 import { animated } from '@react-spring/web';
 import arrow_icon from '../../icons/arrow.svg';
 
@@ -8,9 +7,14 @@ export default (props) => {
     const [open, setOpen] = useState(props.open || false);
     const [springs, api] = useSpring(() => ({
         from: { x: 0, height: props.open ? 'auto' : 0, opacity: props.open ? 1 : 0 },
+        config:{
+            restSpeedThreshold: 1,
+            restDisplacementThreshold: 0.01,
+        }
     }))
     const [iconsprings, iconapi] = useSpring(() => ({
         transform: 'rotate(0deg)'
+
     }))
     const xunzhuan = () => {
         setOpen(!open)
@@ -43,7 +47,7 @@ export default (props) => {
     return (
         <div>
 
-            <div className='flex bg-primary w-[120px] pl-1 pr-1  rounded' >
+            <div className='flex  w-[120px] pl-1 pr-1  rounded' >
                 {props.children ? <div className={'w-[30px] h-[30px] min-w-[30px]'} onClick={xunzhuan} >
                     <animated.div className={'w-[14px] h-[14px]'} style={{ ...iconsprings }} >
                         <img className={'w-[14px] h-[14px]'} src={arrow_icon} />
